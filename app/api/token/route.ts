@@ -1,13 +1,15 @@
-import { AccessToken } from "livekit-server-sdk";
+import { AccessToken, AgentDispatchClient } from "livekit-server-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
+const LIVEKIT_URL = "wss://agent-ls5zwwm3.livekit.cloud";
 const LIVEKIT_API_KEY = "APIuZr5fSExnTri";
-const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET || "your-secret-here";
+const LIVEKIT_API_SECRET = "EmUeNSMTSckIHgenCU1RNt5QeJ8FrNAFWuAhHBgyjboA";
 
 export async function GET(req: NextRequest) {
   const room = req.nextUrl.searchParams.get("room") || "maya-room";
   const username = req.nextUrl.searchParams.get("username") || `visitor-${Date.now()}`;
 
+  // Generate access token
   const at = new AccessToken(LIVEKIT_API_KEY, LIVEKIT_API_SECRET, {
     identity: username,
   });
@@ -20,6 +22,15 @@ export async function GET(req: NextRequest) {
   });
 
   const token = await at.toJwt();
+
+  // Dispatch the Maya agent to the room
+  try {
+    const httpUrl = LIVEKIT_URL.replace("wss://", "https://").replace("ws://", "http://");
+    const dispatch = new AgentDispatchClient(httpUrl, LIVEKIT_API_KEY, LIVEKIT_API_SECRET);
+    await dispatch.createDispatch(room, "middlemind-consultant");
+  } catch {
+    // Agent may already be in room - safe to ignore
+  }
 
   return NextResponse.json({ token });
 }
