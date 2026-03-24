@@ -19,6 +19,30 @@ export const metadata: Metadata = {
   title: "MiddleMind — The Intelligence Layer for Modern Enterprise",
   description:
     "MiddleMind designs and deploys AI systems that transform how enterprises operate — from intelligent voice agents to end-to-end ERP automation.",
+  openGraph: {
+    title: "MiddleMind — The Intelligence Layer for Modern Enterprise",
+    description: "MiddleMind designs and deploys AI systems that transform how enterprises operate — from intelligent voice agents to end-to-end ERP automation.",
+    url: "https://middlemind.ai",
+    siteName: "MiddleMind",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://middlemind.ai/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MiddleMind Enterprise AI Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@MiddleMindAI",
+    creator: "@MiddleMindAI",
+  },
+  alternates: {
+    canonical: "https://middlemind.ai",
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +50,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "MiddleMind",
+    url: "https://middlemind.ai",
+    logo: "https://middlemind.ai/logo.png",
+    sameAs: [
+      "https://github.com/iAm-AliHaider",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+1-234-567-8900",
+      contactType: "customer service",
+      availableLanguage: ["English", "Arabic", "German"],
+    },
+  };
+
   return (
     <html lang="en">
       <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased bg-white text-foreground`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {children}
       </body>
     </html>

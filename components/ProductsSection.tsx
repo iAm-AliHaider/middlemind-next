@@ -7,17 +7,9 @@ const products = [
     name: "Taliq",
     category: "HR Platform",
     description:
-      "Voice-first HR platform replacing legacy intranets. 116 voice tools across 11 modules — leave, attendance, loans, GOSI, interviews, and more. Built for Saudi compliance.",
+      "Voice-first HR platform for Saudi enterprises. 116 voice tools across 11 modules — leave, attendance, loans, GOSI, interviews, and more. Built for Saudi Labor Law compliance.",
     stat: "116 voice tools",
-    url: "https://taliq-app.vercel.app",
-  },
-  {
-    name: "Qanuni",
-    category: "Legal Technology",
-    description:
-      "Full-stack law firm management for the Saudi market. Case management, ZATCA Phase 1 invoicing, Hijri calendar, RBAC across 9 roles, and a bilingual Arabic/English interface.",
-    stat: "28 modules",
-    url: "https://qanuni.vercel.app",
+    url: "https://taliq.middlemind.ai",
   },
   {
     name: "Finvox",
@@ -25,23 +17,7 @@ const products = [
     description:
       "AI voice agent for financial services. Handles loan applications, investment portfolios, OTP-secured onboarding, and post-call WhatsApp summaries — live in production.",
     stat: "33 voice tools",
-    url: "https://finvox-app.vercel.app",
-  },
-  {
-    name: "pikAui",
-    category: "Project Management",
-    description:
-      "Voice-powered project management platform. Speak commands to create tasks, move sprints, log hours, and query your board — the dashboard updates in real time.",
-    stat: "26 voice tools",
-    url: "https://pikaui-pm.vercel.app",
-  },
-  {
-    name: "GoNetwork",
-    category: "Real Estate Intelligence",
-    description:
-      "Property portfolio intelligence platform. 144 documents extracted, OCR-processed, and surfaced across 13 analytical tabs — P&L, valuations, tenants, tax, and anomalies.",
-    stat: "13 analytics tabs",
-    url: "#",
+    url: "https://mrna.middlemind.ai",
   },
   {
     name: "Maya",
@@ -49,7 +25,31 @@ const products = [
     description:
       "Conversational AI consultant available 24/7. Handles product inquiries, technical scoping, and partnership discussions — voice-first, no forms, no waiting.",
     stat: "Always available",
-    url: "#",
+    url: "https://middlemind.ai",
+  },
+  {
+    name: "GoNetwork",
+    category: "Real Estate Intelligence",
+    description:
+      "Property portfolio intelligence platform for German B2B. 144 documents extracted, OCR-processed, and surfaced across 13 analytical tabs — P&L, valuations, tenants, tax, and anomalies.",
+    stat: "13 analytics tabs",
+    url: "https://gonetwork.middlemind.ai",
+  },
+  {
+    name: "pikAui",
+    category: "Project Management",
+    description:
+      "Voice-powered project management platform. Speak commands to create tasks, move sprints, log hours, and query your board — the dashboard updates in real time.",
+    stat: "26 voice tools",
+    url: "https://pikaui-pm.middlemind.ai",
+  },
+  {
+    name: "Qanuni",
+    category: "Legal Technology",
+    description:
+      "Full-stack law firm management for the Saudi market. Case management, ZATCA Phase 1 invoicing, Hijri calendar, RBAC across 9 roles, and a bilingual Arabic/English interface.",
+    stat: "28 modules",
+    url: "https://qanuni.middlemind.ai",
   },
 ];
 

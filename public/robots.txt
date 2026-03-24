@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://middlemind.ai/sitemap.xml
