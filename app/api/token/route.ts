@@ -1,9 +1,9 @@
 import { AccessToken, AgentDispatchClient } from "livekit-server-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-const LIVEKIT_URL = "wss://agent-ls5zwwm3.livekit.cloud";
-const LIVEKIT_API_KEY = "APIuZr5fSExnTri";
-const LIVEKIT_API_SECRET = "EmUeNSMTSckIHgenCU1RNt5QeJ8FrNAFWuAhHBgyjboA";
+const LIVEKIT_URL = process.env.LIVEKIT_URL || "wss://agent-ls5zwwm3.livekit.cloud";
+const LIVEKIT_API_KEY = process.env.LIVEKIT_API_KEY!;
+const LIVEKIT_API_SECRET = process.env.LIVEKIT_API_SECRET!;
 
 export async function GET(req: NextRequest) {
   const room = req.nextUrl.searchParams.get("room") || "maya-room";
