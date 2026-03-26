@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --purple: #6C5CE7;
-  --purple-dark: #4361ee;
-  --teal: #00b894;
-  --light-bg: #FAFBFC;
-  --light-purple-bg: #F5F3FF;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --purple: #7c3aed;
+  --purple-light: #a78bfa;
+  --purple-dark: #5b21b6;
+  --teal: #14b8a6;
+  --light-bg: #0a0a0f;
+  --light-purple-bg: #13111c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-purple: #6C5CE7;
-  --color-purple-dark: #4361ee;
-  --color-teal: #00b894;
-  --color-light-bg: #FAFBFC;
-  --color-light-purple-bg: #F5F3FF;
+  --color-purple: #7c3aed;
+  --color-purple-light: #a78bfa;
+  --color-purple-dark: #5b21b6;
+  --color-teal: #14b8a6;
+  --color-light-bg: #0a0a0f;
+  --color-light-purple-bg: #13111c;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-jakarta);
 }
@@ -27,15 +29,45 @@ body {
   color: var(--foreground);
 }
 
-/* Mesh grid background for hero */
 .mesh-bg {
   background-image:
-    linear-gradient(rgba(108, 92, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(108, 92, 231, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 40% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
 }
 
-/* Marquee animations */
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(20, 184, 166, 0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.glow-purple {
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.3), 0 0 120px rgba(124, 58, 237, 0.1);
+}
+
+.glow-teal {
+  box-shadow: 0 0 40px rgba(20, 184, 166, 0.3);
+}
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -54,7 +86,6 @@ body {
   animation: marquee-reverse 30s linear infinite;
 }
 
-/* Breathing orb for voice widget */
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.08); }
@@ -64,7 +95,6 @@ body {
   animation: breathe 3s ease-in-out infinite;
 }
 
-/* Pulse ring for voice button */
 @keyframes pulse-ring {
   0% { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(1.5); opacity: 0; }
@@ -74,7 +104,6 @@ body {
   animation: pulse-ring 2s ease-out infinite;
 }
 
-/* Ripple effect for connecting state */
 @keyframes ripple {
   0% { transform: scale(0.8); opacity: 1; }
   100% { transform: scale(2.5); opacity: 0; }
@@ -92,7 +121,6 @@ body {
   animation: ripple 1.5s ease-out infinite 1s;
 }
 
-/* Floating gradient cards */
 @keyframes float-1 {
   0%, 100% { transform: translateY(0) rotate(12deg); }
   50% { transform: translateY(-20px) rotate(15deg); }
@@ -118,4 +146,24 @@ body {
 
 .animate-float-3 {
   animation: float-3 7s ease-in-out infinite;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+.animate-orb {
+  animation: orb-float 20s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
 }

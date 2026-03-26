@@ -16,12 +16,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MiddleMind — The Intelligence Layer for Modern Enterprise",
+  title: "MiddleMind — AI Product Studio. We Build What Others Can't.",
   description:
-    "MiddleMind designs and deploys AI systems that transform how enterprises operate — from intelligent voice agents to end-to-end ERP automation.",
+    "MiddleMind is an AI Product Studio that builds what others can't. From voice agents to enterprise automation — if you can imagine it, we can build it.",
   openGraph: {
-    title: "MiddleMind — The Intelligence Layer for Modern Enterprise",
-    description: "MiddleMind designs and deploys AI systems that transform how enterprises operate — from intelligent voice agents to end-to-end ERP automation.",
+    title: "MiddleMind — AI Product Studio. We Build What Others Can't.",
+    description: "MiddleMind is an AI Product Studio that builds what others can't. From voice agents to enterprise automation — if you can imagine it, we can build it.",
     url: "https://middlemind.ai",
     siteName: "MiddleMind",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "https://middlemind.ai/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "MiddleMind Enterprise AI Solutions",
+        alt: "MiddleMind AI Product Studio",
       },
     ],
   },
@@ -61,7 +61,7 @@ export default function RootLayout({
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+1-234-567-8900",
+      email: "hello@middlemind.ai",
       contactType: "customer service",
       availableLanguage: ["English", "Arabic", "German"],
     },
@@ -69,7 +69,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased bg-white text-foreground`}>
+      <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased bg-black text-white`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

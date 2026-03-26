@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
+import VoiceAgentsSection from "@/components/VoiceAgentsSection";
 import ServicesSection from "@/components/ServicesSection";
 import MetricsSection from "@/components/MetricsSection";
 import TechnologySection from "@/components/TechnologySection";
@@ -21,6 +22,7 @@ export default function Home() {
       <Navbar onTalkToMaya={openVoice} />
       <HeroSection onTalkToMaya={openVoice} />
       <ProductsSection />
+      <VoiceAgentsSection onTalkToMaya={openVoice} />
       <ServicesSection />
       <MetricsSection />
       <TechnologySection />

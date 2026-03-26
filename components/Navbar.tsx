@@ -12,7 +12,12 @@ export default function Navbar({ onTalkToMaya }: { onTalkToMaya: () => void }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["Products", "Services", "Technology", "Contact"];
+  const navLinks = [
+    { label: "Products", href: "#products" },
+    { label: "Voice Agents", href: "#voice-agents" },
+    { label: "Services", href: "#services" },
+    { label: "Technology", href: "#technology" },
+  ];
 
   return (
     <motion.nav
@@ -27,18 +32,21 @@ export default function Navbar({ onTalkToMaya }: { onTalkToMaya: () => void }) {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <a href="#" className="font-heading text-xl font-800 text-purple">
-            MiddleMind
+          <a href="#" className="flex items-center gap-2">
+            <span className="font-heading text-xl font-800 text-purple">MiddleMind</span>
+            <span className="hidden sm:inline-block rounded-full bg-purple/10 px-2 py-0.5 text-xs font-medium text-purple">
+              AI Studio
+            </span>
           </a>
 
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
+                key={link.label}
+                href={link.href}
                 className="text-sm font-medium text-gray-600 transition-colors hover:text-purple"
               >
-                {link}
+                {link.label}
               </a>
             ))}
           </div>

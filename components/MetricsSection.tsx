@@ -35,9 +35,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const metrics = [
-  { value: 6, label: "Products in Production" },
-  { value: 116, label: "Voice Tools in Taliq Alone" },
-  { value: 76934, label: "KB Chunks Indexed" },
+  { value: 10, suffix: "+", label: "Products in Production" },
+  { value: 200, suffix: "+", label: "Voice Tools Built" },
+  { value: 5, suffix: "", label: "Industries Served" },
   { value: 48, suffix: "h", label: "Average Delivery Time" },
 ];
 
@@ -52,19 +52,13 @@ export default function MetricsSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.1,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-center"
             >
               <div className="font-heading text-5xl font-800 text-white lg:text-6xl">
                 <AnimatedCounter target={metric.value} suffix={metric.suffix} />
               </div>
-              <p className="mt-3 text-sm font-medium text-white/80">
-                {metric.label}
-              </p>
+              <p className="mt-3 text-sm font-medium text-white/80">{metric.label}</p>
             </motion.div>
           ))}
         </div>
