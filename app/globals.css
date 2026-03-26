@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
+  --background: #ffffff;
+  --foreground: #111827;
   --purple: #7c3aed;
   --purple-light: #a78bfa;
   --purple-dark: #5b21b6;
-  --teal: #14b8a6;
-  --light-bg: #0a0a0f;
-  --light-purple-bg: #13111c;
+  --teal: #0d9488;
+  --light-bg: #f9f8ff;
+  --light-purple-bg: #f5f3ff;
 }
 
 @theme inline {
@@ -17,9 +17,9 @@
   --color-purple: #7c3aed;
   --color-purple-light: #a78bfa;
   --color-purple-dark: #5b21b6;
-  --color-teal: #14b8a6;
-  --color-light-bg: #0a0a0f;
-  --color-light-purple-bg: #13111c;
+  --color-teal: #0d9488;
+  --color-light-bg: #f9f8ff;
+  --color-light-purple-bg: #f5f3ff;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-jakarta);
 }
@@ -30,14 +30,15 @@ body {
 }
 
 .mesh-bg {
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 40% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
+    radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(13, 148, 136, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 40% 80%, rgba(124, 58, 237, 0.04) 0%, transparent 40%);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #14b8a6 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 50%, #0d9488 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -53,7 +54,7 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(20, 184, 166, 0.2));
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(13, 148, 136, 0.2));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -61,11 +62,11 @@ body {
 }
 
 .glow-purple {
-  box-shadow: 0 0 60px rgba(124, 58, 237, 0.3), 0 0 120px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.15);
 }
 
 .glow-teal {
-  box-shadow: 0 0 40px rgba(20, 184, 166, 0.3);
+  box-shadow: 0 4px 24px rgba(13, 148, 136, 0.15);
 }
 
 @keyframes marquee {
@@ -102,23 +103,6 @@ body {
 
 .animate-pulse-ring {
   animation: pulse-ring 2s ease-out infinite;
-}
-
-@keyframes ripple {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
-}
-
-.animate-ripple {
-  animation: ripple 1.5s ease-out infinite;
-}
-
-.animate-ripple-delay-1 {
-  animation: ripple 1.5s ease-out infinite 0.5s;
-}
-
-.animate-ripple-delay-2 {
-  animation: ripple 1.5s ease-out infinite 1s;
 }
 
 @keyframes float-1 {

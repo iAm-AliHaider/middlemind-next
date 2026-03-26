@@ -69,7 +69,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased bg-black text-white`}>
+      <body className={`${jakarta.variable} ${inter.variable} font-sans antialiased bg-white text-gray-900`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
