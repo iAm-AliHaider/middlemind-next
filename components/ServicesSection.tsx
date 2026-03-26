@@ -17,7 +17,7 @@ export default function ServicesSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-purple mb-3">The studio</p>
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+          <h2 className="font-heading text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
             What we do
           </h2>
         </div>
@@ -30,13 +30,13 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="bg-white p-8 hover:bg-surface-2 transition-colors"
+              className="bg-white p-8 hover:bg-gray-50 transition-colors"
             >
               {s.tag && (
                 <span className="inline-block mb-3 rounded-full bg-purple/10 px-3 py-1 text-xs font-semibold text-purple">{s.tag}</span>
               )}
-              <h3 className="font-heading text-xl font-bold text-ink">{s.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-soft">{s.desc}</p>
+              <h3 className="font-heading text-xl font-bold text-gray-900">{s.name}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">{s.desc}</p>
             </motion.div>
           ))}
         </div>

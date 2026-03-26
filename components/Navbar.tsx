@@ -28,7 +28,7 @@ export default function Navbar({ onTalkToMaya }: { onTalkToMaya: () => void }) {
             <rect x="2" y="10" width="11" height="11" rx="2" transform="rotate(-45 2 10)" fill="#7c3aed"/>
             <rect x="10" y="10" width="11" height="11" rx="2" transform="rotate(-45 10 10)" fill="#7c3aed" fillOpacity="0.45"/>
           </svg>
-          <span className="font-heading text-[17px] tracking-tight text-ink">
+          <span className="font-heading text-[17px] tracking-tight text-gray-900">
             <span className="font-light">middle</span><span className="font-extrabold">mind</span>
           </span>
         </a>
@@ -36,7 +36,7 @@ export default function Navbar({ onTalkToMaya }: { onTalkToMaya: () => void }) {
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {[["Products", "#products"], ["Voice AI", "#voice"], ["Studio", "#services"], ["Tech", "#technology"]].map(([label, href]) => (
-            <a key={label} href={href} className="text-sm font-medium text-ink-soft hover:text-ink transition-colors">
+            <a key={label} href={href} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
               {label}
             </a>
           ))}

@@ -38,16 +38,16 @@ const stats = [
 
 export default function VoiceAgentsSection({ onTalkToMaya }: { onTalkToMaya: () => void }) {
   return (
-    <section id="voice" className="py-32 bg-surface-2 overflow-hidden">
+    <section id="voice" className="py-32 bg-gray-50 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
         {/* Header */}
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-purple mb-4">Voice AI</p>
-          <h2 className="font-heading text-5xl font-extrabold tracking-tight text-ink leading-tight sm:text-6xl">
+          <h2 className="font-heading text-5xl font-extrabold tracking-tight text-gray-900 leading-tight sm:text-6xl">
             The interface<br />is your voice.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-ink-soft">
+          <p className="mt-6 text-lg leading-relaxed text-gray-600">
             No forms. No menus. No waiting. Speak to our agents and they respond, 
             act, and follow up — in under 200ms.
           </p>
@@ -68,7 +68,7 @@ export default function VoiceAgentsSection({ onTalkToMaya }: { onTalkToMaya: () 
                 <span className="h-2.5 w-2.5 rounded-full bg-green-400" style={{ animation: "pulse-dot 1.5s ease-in-out infinite" }} />
                 <span className="text-xs font-semibold text-green-600 uppercase tracking-wide">Maya is live</span>
               </div>
-              <p className="font-heading text-2xl font-bold text-ink leading-snug">
+              <p className="font-heading text-2xl font-bold text-gray-900 leading-snug">
                 &ldquo;Tell me about your HR challenges<br />and I&apos;ll show you what Taliq can do.&rdquo;
               </p>
               <p className="mt-3 text-sm text-gray-400">— Example of what Maya handles</p>
@@ -122,14 +122,14 @@ export default function VoiceAgentsSection({ onTalkToMaya }: { onTalkToMaya: () 
             >
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h4 className="font-heading text-xl font-extrabold text-ink">{a.name}</h4>
+                  <h4 className="font-heading text-xl font-extrabold text-gray-900">{a.name}</h4>
                   <p className="text-xs font-semibold mt-0.5" style={{ color: a.color }}>{a.role}</p>
                 </div>
                 <span className="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ backgroundColor: a.color }}>
                   {a.tools}
                 </span>
               </div>
-              <p className="text-sm leading-relaxed text-ink-soft">{a.desc}</p>
+              <p className="text-sm leading-relaxed text-gray-600">{a.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -156,7 +156,7 @@ export default function VoiceAgentsSection({ onTalkToMaya }: { onTalkToMaya: () 
                   <div className="h-10 w-10 rounded-full bg-purple flex items-center justify-center text-white font-bold text-sm shadow-md shadow-purple/20">
                     {i + 1}
                   </div>
-                  <p className="mt-2 text-sm font-semibold text-ink">{item.step}</p>
+                  <p className="mt-2 text-sm font-semibold text-gray-900">{item.step}</p>
                   <p className="text-xs text-gray-400">{item.sub}</p>
                 </div>
                 {i < 4 && (

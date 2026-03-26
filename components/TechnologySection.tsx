@@ -12,7 +12,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
       <div className={`flex gap-4 whitespace-nowrap ${reverse ? "" : "animate-marquee"}`}
         style={reverse ? { animation: "marquee 35s linear infinite reverse" } : {}}>
         {doubled.map((item, i) => (
-          <span key={i} className="inline-flex items-center rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-ink-soft shadow-sm">
+          <span key={i} className="inline-flex items-center rounded-full border border-gray-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 shadow-sm">
             {item}
           </span>
         ))}
@@ -23,7 +23,7 @@ function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolea
 
 export default function TechnologySection() {
   return (
-    <section id="technology" className="py-24 bg-surface-2 overflow-hidden">
+    <section id="technology" className="py-24 bg-gray-50 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -33,10 +33,10 @@ export default function TechnologySection() {
           className="max-w-xl mb-14"
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-purple mb-3">Stack</p>
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight text-ink">
+          <h2 className="font-heading text-4xl font-extrabold tracking-tight text-gray-900">
             Built on the best.
           </h2>
-          <p className="mt-4 text-base text-ink-soft">
+          <p className="mt-4 text-base text-gray-600">
             We choose tools that scale. Every product in our portfolio runs on production-grade infrastructure.
           </p>
         </motion.div>
@@ -62,8 +62,8 @@ export default function TechnologySection() {
               className="rounded-2xl bg-white border border-gray-100 p-7"
             >
               <span className="text-3xl">{p.icon}</span>
-              <h3 className="mt-4 font-heading text-lg font-bold text-ink">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{p.body}</p>
+              <h3 className="mt-4 font-heading text-lg font-bold text-gray-900">{p.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">{p.body}</p>
             </motion.div>
           ))}
         </div>

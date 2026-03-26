@@ -29,7 +29,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-heading text-6xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-7xl lg:text-8xl"
+          className="font-heading text-6xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-7xl lg:text-8xl"
         >
           We build what<br />
           <span className="text-purple">others can&apos;t.</span>
@@ -40,7 +40,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-soft"
+          className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-gray-600"
         >
           Enterprise AI products shipped at startup speed.
           10+ platforms live across HR, fintech, legal, real estate and more —
@@ -62,7 +62,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           </button>
           <a
             href="#products"
-            className="rounded-full border border-gray-200 bg-white px-8 py-3.5 text-sm font-semibold text-ink hover:border-gray-300 hover:bg-gray-50 transition-colors"
+            className="rounded-full border border-gray-200 bg-white px-8 py-3.5 text-sm font-semibold text-gray-900 hover:border-gray-300 hover:bg-gray-50 transition-colors"
           >
             See what we&apos;ve built
           </a>
@@ -79,7 +79,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           <div className="flex gap-6">
             <div className="flex gap-6 animate-marquee whitespace-nowrap">
               {[...words, ...words].map((w, i) => (
-                <span key={i} className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft">
+                <span key={i} className="inline-flex items-center gap-2 text-sm font-medium text-gray-600">
                   <span className="h-1.5 w-1.5 rounded-full bg-purple/40" />
                   {w}
                 </span>

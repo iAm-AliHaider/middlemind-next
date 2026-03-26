@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-ink border-t border-white/5">
+    <footer className="bg-gray-900 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-8">
           {/* Brand */}
@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">&copy; 2026 MiddleMind. All rights reserved.</p>
           <p className="text-xs text-gray-600">Building what others can&apos;t.</p>
         </div>
