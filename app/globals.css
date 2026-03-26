@@ -1,66 +1,26 @@
 @import "tailwindcss";
 
-:root {
-  --purple: #7c3aed;
-  --purple-dark: #5b21b6;
-  --purple-light: #ede9fe;
-  --teal: #0d9488;
-  --ink: #0f0e17;
-  --ink-soft: #374151;
-  --surface: #ffffff;
-  --surface-2: #f8f7ff;
-  --border: #e5e7eb;
-}
-
 @theme inline {
   --color-purple: #7c3aed;
   --color-purple-dark: #5b21b6;
   --color-purple-light: #ede9fe;
   --color-teal: #0d9488;
-  --color-ink: #0f0e17;
-  --color-ink-soft: #374151;
-  --color-surface: #ffffff;
-  --color-surface-2: #f8f7ff;
-  --color-border: #e5e7eb;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-jakarta);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: #ffffff;
-  color: #0f0e17;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #111827;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* ── Animations ── */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 .animate-marquee { animation: marquee 40s linear infinite; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(32px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
-
-@keyframes waveform {
-  0%, 100% { transform: scaleY(0.3); }
-  50%       { transform: scaleY(1); }
-}
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -68,18 +28,7 @@ body {
 }
 .animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
-}
-.animate-float { animation: float 5s ease-in-out infinite; }
-
-/* ── Noise texture overlay ── */
-.noise::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  border-radius: inherit;
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50%       { transform: scaleY(1); }
 }
