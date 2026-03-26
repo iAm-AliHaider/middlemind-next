@@ -2,96 +2,103 @@
 
 import { motion } from "framer-motion";
 
-const pills = ["HR AI", "Fintech AI", "Legal AI", "Real Estate AI", "Voice Agents", "Security AI"];
+const words = ["HR platforms.", "AI accounting.", "Legal tech.", "Voice agents.", "Real estate.", "What's yours?"];
 
 export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void }) {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-bg">
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[15%] right-[10%] w-64 h-40 rounded-2xl bg-gradient-to-br from-purple/10 to-teal/10 animate-float-1" />
-        <div className="absolute bottom-[20%] left-[8%] w-48 h-32 rounded-2xl bg-gradient-to-tr from-purple/8 to-purple-dark/8 animate-float-2" />
-        <div className="absolute top-[40%] left-[60%] w-36 h-36 rounded-2xl bg-gradient-to-bl from-teal/8 to-purple/5 animate-float-3" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white px-6 pt-16">
+      {/* Subtle background glow */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 text-center pt-24">
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
+        {/* Eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple/20 bg-purple/5 px-4 py-2"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2.5 rounded-full border border-purple/20 bg-purple/5 px-4 py-1.5 mb-8"
         >
-          <span className="h-2 w-2 rounded-full bg-purple animate-pulse" />
-          <span className="text-xs font-semibold text-purple tracking-wide uppercase">AI Product Studio</span>
+          <span className="h-2 w-2 rounded-full bg-purple animate-pulse-dot" />
+          <span className="text-xs font-semibold tracking-widest uppercase text-purple">AI Product Studio</span>
         </motion.div>
 
-        <h1 className="font-heading text-5xl font-800 leading-tight tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="block"
-          >
-            We Build What
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="block text-purple"
-          >
-            Others Can&apos;t.
-          </motion.span>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-gray-600"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="font-heading text-6xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-7xl lg:text-8xl"
         >
-          MiddleMind ships AI-powered enterprise products — from voice agents with 100+ tools
-          to ZATCA-compliant fintech platforms. Whatever your industry, we have a solution running in production.
+          We build what<br />
+          <span className="text-purple">others can&apos;t.</span>
+        </motion.h1>
+
+        {/* Sub */}
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-soft"
+        >
+          Enterprise AI products shipped at startup speed.
+          10+ platforms live across HR, fintech, legal, real estate and more —
+          all powered by voice, all built by MiddleMind.
         </motion.p>
 
+        {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          className="mt-10 flex items-center justify-center gap-4 flex-wrap"
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <a
-            href="#products"
-            className="rounded-full bg-purple px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-purple-dark hover:shadow-lg"
-          >
-            Explore Products
-          </a>
           <button
             onClick={onTalkToMaya}
-            className="rounded-full border border-purple/30 px-7 py-3 text-sm font-semibold text-purple transition-all hover:border-purple hover:bg-purple/5 cursor-pointer"
+            className="rounded-full bg-purple px-8 py-3.5 text-sm font-semibold text-white hover:bg-purple-dark transition-colors shadow-lg shadow-purple/20"
           >
-            Talk to Maya
+            Talk to Maya — free consultation
           </button>
+          <a
+            href="#products"
+            className="rounded-full border border-gray-200 bg-white px-8 py-3.5 text-sm font-semibold text-ink hover:border-gray-300 hover:bg-gray-50 transition-colors"
+          >
+            See what we&apos;ve built
+          </a>
         </motion.div>
 
+        {/* Scrolling industry ticker */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-14 flex flex-wrap justify-center gap-3"
+          transition={{ duration: 1, delay: 0.7 }}
+          className="mt-16 overflow-hidden"
         >
-          {pills.map((pill, i) => (
-            <motion.span
-              key={pill}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.9 + i * 0.07 }}
-              className="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-xs font-medium text-gray-600 shadow-sm"
-            >
-              {pill}
-            </motion.span>
-          ))}
+          <p className="text-xs font-medium uppercase tracking-widest text-gray-400 mb-4">We ship into</p>
+          <div className="flex gap-6">
+            <div className="flex gap-6 animate-marquee whitespace-nowrap">
+              {[...words, ...words].map((w, i) => (
+                <span key={i} className="inline-flex items-center gap-2 text-sm font-medium text-ink-soft">
+                  <span className="h-1.5 w-1.5 rounded-full bg-purple/40" />
+                  {w}
+                </span>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-xs text-gray-400">scroll</span>
+        <div className="w-px h-10 bg-gradient-to-b from-gray-300 to-transparent" />
+      </motion.div>
     </section>
   );
 }

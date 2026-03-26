@@ -1,215 +1,211 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const flagships = [
   {
     name: "Taliq",
-    category: "HR Platform",
-    description:
-      "Voice-first HR platform for Saudi enterprises. 116 voice tools across 11 modules — leave, attendance, loans, GOSI, interviews, and more. Built for Saudi Labor Law compliance.",
-    stat: "116 voice tools",
+    tagline: "Voice-first HR for Saudi Arabia.",
+    description: "116 voice tools across 11 modules. Leave, attendance, loans, GOSI, interviews — all spoken, all compliant with Saudi Labor Law.",
+    stat1: { label: "Voice tools", value: "116" },
+    stat2: { label: "Modules", value: "11" },
+    accent: "#7c3aed",
+    bg: "#f5f3ff",
     url: "https://taliq.middlemind.ai",
-    gradient: "from-purple to-purple-dark",
+    badge: "HR Platform",
+    screenshot: "https://taliq.middlemind.ai",
   },
   {
     name: "HisabAI",
-    category: "AI Accounting",
-    description:
-      "Saudi Arabia's first AI-powered accounting SaaS. ZATCA FATOORA compliant, AI transaction categorization, OCR receipt scanning, automated VAT returns, and cash flow forecasting.",
-    stat: "ZATCA Compliant",
-    url: "https://hisabai.middlemind.ai",
-    gradient: "from-teal to-purple",
+    tagline: "Saudi Arabia's first AI accountant.",
+    description: "ZATCA FATOORA compliant. AI categorizes transactions, reads receipts via OCR, files VAT returns, and forecasts cash flow — automatically.",
+    stat1: { label: "Compliance", value: "ZATCA" },
+    stat2: { label: "AI engine", value: "FastAPI" },
+    accent: "#0d9488",
+    bg: "#f0fdfa",
+    url: "#",
+    badge: "AI Accounting",
+    screenshot: null,
   },
   {
     name: "Mizan",
-    category: "Financial Management",
-    description:
-      "Intelligent financial management platform for modern enterprises. Balance sheets, P&L reporting, budgets, and forecasting — all in one unified dashboard.",
-    stat: "Full Finance Suite",
-    url: "https://mizan.middlemind.ai",
-    gradient: "from-purple-dark to-teal",
+    tagline: "Financial clarity, end to end.",
+    description: "Balance sheets, P&L, budgets and forecasting — unified in one intelligent platform built for modern enterprises.",
+    stat1: { label: "Reports", value: "Full suite" },
+    stat2: { label: "Integrations", value: "ERP-ready" },
+    accent: "#7c3aed",
+    bg: "#faf5ff",
+    url: "#",
+    badge: "Finance",
+    screenshot: null,
   },
   {
     name: "Haris",
-    category: "Security & Document Intelligence",
-    description:
-      "Enterprise document scanning, OCR processing, and automated security audits. ZAP integration for vulnerability detection. Built for enterprise compliance and peace of mind.",
-    stat: "Auto Security Audits",
+    tagline: "Security intelligence that never sleeps.",
+    description: "Document scanning, OCR processing, and automated security audits. ZAP integration detects vulnerabilities before attackers do.",
+    stat1: { label: "Audit type", value: "Auto" },
+    stat2: { label: "Engine", value: "OWASP ZAP" },
+    accent: "#dc2626",
+    bg: "#fff7f7",
     url: "#",
-    gradient: "from-purple to-teal",
+    badge: "Security",
+    screenshot: null,
   },
   {
     name: "Finvox",
-    category: "Financial Voice Agent",
-    description:
-      "AI voice agent for financial services. Handles loan applications, investment portfolios, OTP-secured onboarding, and post-call WhatsApp summaries — live in production.",
-    stat: "33 voice tools",
+    tagline: "Your AI banker, always on call.",
+    description: "Handles loan applications, investment portfolio queries, OTP-secured onboarding, and sends WhatsApp summaries post-call. 33 voice tools live.",
+    stat1: { label: "Voice tools", value: "33" },
+    stat2: { label: "Channel", value: "WhatsApp" },
+    accent: "#2563eb",
+    bg: "#eff6ff",
     url: "https://mrna.middlemind.ai",
-    gradient: "from-teal to-purple-dark",
+    badge: "Fintech Voice",
+    screenshot: "https://mrna.middlemind.ai",
   },
 ];
 
 const portfolio = [
-  {
-    name: "GoNetwork",
-    category: "Real Estate Intelligence",
-    description: "Property portfolio intelligence for German B2B. 144 documents, OCR-processed, 13 analytical tabs.",
-    stat: "13 analytics tabs",
-    url: "https://gonetwork.middlemind.ai",
-  },
-  {
-    name: "pikAui",
-    category: "Project Management",
-    description: "Voice-powered PM. Speak to create tasks, move sprints, log hours, and query your board in real time.",
-    stat: "26 voice tools",
-    url: "https://pikaui-pm.middlemind.ai",
-  },
-  {
-    name: "Qanuni",
-    category: "Legal Technology",
-    description: "Law firm management for the Saudi market. ZATCA invoicing, Hijri calendar, bilingual Arabic/English.",
-    stat: "28 modules",
-    url: "https://qanuni.middlemind.ai",
-  },
-  {
-    name: "Tamweel",
-    category: "Islamic Fintech",
-    description: "Islamic financing platform with Shariah-compliant loan workflows and seamless digital onboarding.",
-    stat: "Shariah Compliant",
-    url: "#",
-  },
-  {
-    name: "Alamlak",
-    category: "Real Estate Portal",
-    description: "Client portal for real estate with property listings, analytics, and integrated CRM tools.",
-    stat: "Full CRM",
-    url: "#",
-  },
-  {
-    name: "WA Blaster",
-    category: "Marketing Automation",
-    description: "WhatsApp campaign automation. Bulk messaging, contact management, and delivery tracking at scale.",
-    stat: "Bulk Campaigns",
-    url: "#",
-  },
+  { name: "GoNetwork", cat: "Real Estate Intel", desc: "144 docs, OCR-processed, 13 analytics tabs. German B2B property intelligence.", url: "https://gonetwork.middlemind.ai" },
+  { name: "pikAui", cat: "Project Management", desc: "Voice-powered PM. Speak to create tasks, move sprints, log hours.", url: "https://pikaui-pm.middlemind.ai" },
+  { name: "Qanuni", cat: "Legal Tech", desc: "Law firm OS for Saudi market. ZATCA invoicing, Hijri calendar, bilingual.", url: "https://qanuni.middlemind.ai" },
+  { name: "Tamweel", cat: "Islamic Fintech", desc: "Shariah-compliant loan workflows with digital onboarding.", url: "#" },
+  { name: "Alamlak", cat: "Real Estate", desc: "Property listings, analytics and CRM in one client portal.", url: "#" },
+  { name: "WA Blaster", cat: "Marketing", desc: "WhatsApp bulk campaigns. Contact management and delivery tracking.", url: "#" },
 ];
+
+function FlagshipCard({ product, index }: { product: typeof flagships[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const isEven = index % 2 === 0;
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 48 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-16 border-t border-gray-100 first:border-t-0"
+    >
+      {/* Text side */}
+      <div className={isEven ? "lg:order-1" : "lg:order-2"}>
+        <div className="inline-flex items-center gap-2 mb-5">
+          <span
+            className="inline-block rounded-full px-3 py-1 text-xs font-semibold"
+            style={{ backgroundColor: product.accent + "18", color: product.accent }}
+          >
+            {product.badge}
+          </span>
+        </div>
+        <h3 className="font-heading text-5xl font-extrabold tracking-tight text-ink">{product.name}</h3>
+        <p className="mt-3 text-xl font-medium text-ink-soft">{product.tagline}</p>
+        <p className="mt-4 text-base leading-relaxed text-gray-500">{product.description}</p>
+
+        <div className="mt-8 flex items-center gap-8">
+          <div>
+            <p className="text-3xl font-extrabold" style={{ color: product.accent }}>{product.stat1.value}</p>
+            <p className="mt-0.5 text-xs font-medium text-gray-400 uppercase tracking-wide">{product.stat1.label}</p>
+          </div>
+          <div className="w-px h-10 bg-gray-200" />
+          <div>
+            <p className="text-3xl font-extrabold text-ink">{product.stat2.value}</p>
+            <p className="mt-0.5 text-xs font-medium text-gray-400 uppercase tracking-wide">{product.stat2.label}</p>
+          </div>
+        </div>
+
+        {product.url !== "#" && (
+          <a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold rounded-full border border-gray-200 px-5 py-2.5 text-ink hover:bg-gray-50 transition-colors"
+          >
+            Open live product
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        )}
+      </div>
+
+      {/* Visual side */}
+      <div className={isEven ? "lg:order-2" : "lg:order-1"}>
+        <div
+          className="relative rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center"
+          style={{ backgroundColor: product.bg }}
+        >
+          {product.screenshot ? (
+            <iframe
+              src={product.screenshot}
+              className="w-[160%] h-[160%] scale-[0.625] origin-top-left pointer-events-none border-0"
+              style={{ transformOrigin: "top left" }}
+              title={product.name}
+            />
+          ) : (
+            <div className="text-center p-12">
+              <p className="font-heading text-7xl font-extrabold" style={{ color: product.accent + "30" }}>
+                {product.name[0]}
+              </p>
+              <p className="mt-3 text-sm font-medium" style={{ color: product.accent }}>{product.badge}</p>
+            </div>
+          )}
+          {/* Corner label */}
+          <div className="absolute bottom-4 right-4 rounded-lg bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-ink shadow-sm">
+            {product.name}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function ProductsSection() {
   return (
-    <section id="products" className="py-24 bg-light-bg">
+    <section id="products" className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-          className="text-center"
-        >
-          <h2 className="font-heading text-3xl font-800 tracking-tight text-gray-900 sm:text-4xl">
-            Our Products
-          </h2>
-          <p className="mt-4 text-base text-gray-500 max-w-xl mx-auto">
-            10+ products across 5 industries, running on two production servers.
-          </p>
-        </motion.div>
 
-        {/* Flagship label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mt-16 flex items-center gap-3"
-        >
-          <span className="text-xs font-semibold uppercase tracking-widest text-purple">Flagship Products</span>
-          <div className="flex-1 h-px bg-purple/20" />
-        </motion.div>
-
-        {/* Flagship grid */}
-        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {flagships.map((product, i) => (
-            <motion.div
-              key={product.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="group relative rounded-2xl bg-white p-7 shadow-md transition-shadow hover:shadow-xl cursor-default"
-            >
-              <div className={`absolute inset-x-0 top-0 h-1.5 rounded-t-2xl bg-gradient-to-r ${product.gradient}`} />
-              <div className="flex items-center justify-between">
-                <span className="inline-block rounded-full bg-purple/10 px-3 py-1 text-xs font-medium text-purple">
-                  {product.category}
-                </span>
-                <span className="text-xs font-bold text-teal">{product.stat}</span>
-              </div>
-              <h3 className="mt-5 font-heading text-2xl font-bold text-gray-900">{product.name}</h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600">{product.description}</p>
-              {product.url !== "#" && (
-                <a
-                  href={product.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-purple transition-opacity hover:opacity-70"
-                >
-                  View Live
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                  </svg>
-                </a>
-              )}
-            </motion.div>
-          ))}
+        {/* Section header */}
+        <div className="mb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-purple mb-3">What we ship</p>
+          <div className="flex items-end justify-between">
+            <h2 className="font-heading text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+              Our products
+            </h2>
+            <p className="hidden sm:block text-sm text-gray-400">10+ live, 5 industries</p>
+          </div>
         </div>
 
-        {/* Portfolio label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mt-16 flex items-center gap-3"
-        >
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Full Portfolio</span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </motion.div>
+        {/* Flagship list */}
+        <div>
+          {flagships.map((p, i) => <FlagshipCard key={p.name} product={p} index={i} />)}
+        </div>
 
         {/* Portfolio grid */}
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {portfolio.map((product, i) => (
-            <motion.div
-              key={product.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{ y: -3 }}
-              className="group relative rounded-xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md cursor-default"
-            >
-              <div className="absolute inset-x-0 top-0 h-1 rounded-t-xl bg-gradient-to-r from-purple/40 to-teal/40" />
-              <div className="flex items-center justify-between">
-                <span className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                  {product.category}
-                </span>
-                <span className="text-xs font-semibold text-teal">{product.stat}</span>
-              </div>
-              <h3 className="mt-3 font-heading text-lg font-bold text-gray-900">{product.name}</h3>
-              <p className="mt-1.5 text-sm leading-5 text-gray-500">{product.description}</p>
-              {product.url !== "#" && (
-                <a
-                  href={product.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-xs font-medium text-purple transition-opacity hover:opacity-70"
-                >
-                  View Live →
-                </a>
-              )}
-            </motion.div>
-          ))}
+        <div className="mt-20 pt-16 border-t border-gray-100">
+          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Full portfolio</p>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {portfolio.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="group rounded-2xl border border-gray-100 bg-surface-2 p-6 hover:border-purple/20 hover:bg-purple-light/20 transition-all"
+              >
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">{p.cat}</p>
+                <h4 className="font-heading text-xl font-bold text-ink">{p.name}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{p.desc}</p>
+                {p.url !== "#" && (
+                  <a href={p.url} target="_blank" rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-purple hover:opacity-70 transition-opacity">
+                    View live →
+                  </a>
+                )}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

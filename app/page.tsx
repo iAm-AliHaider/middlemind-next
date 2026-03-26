@@ -14,21 +14,21 @@ import VoiceWidget from "@/components/VoiceWidget";
 
 export default function Home() {
   const [voiceOpen, setVoiceOpen] = useState(false);
-  const openVoice = () => setVoiceOpen(true);
-  const closeVoice = () => setVoiceOpen(false);
+  const open = () => setVoiceOpen(true);
+  const close = () => setVoiceOpen(false);
 
   return (
     <>
-      <Navbar onTalkToMaya={openVoice} />
-      <HeroSection onTalkToMaya={openVoice} />
-      <ProductsSection />
-      <VoiceAgentsSection onTalkToMaya={openVoice} />
-      <ServicesSection />
+      <Navbar onTalkToMaya={open} />
+      <HeroSection onTalkToMaya={open} />
       <MetricsSection />
+      <ProductsSection />
+      <VoiceAgentsSection onTalkToMaya={open} />
+      <ServicesSection />
       <TechnologySection />
-      <CTASection onTalkToMaya={openVoice} />
+      <CTASection onTalkToMaya={open} />
       <Footer />
-      <VoiceWidget isOpen={voiceOpen} onClose={closeVoice} />
+      <VoiceWidget isOpen={voiceOpen} onClose={close} />
     </>
   );
 }
