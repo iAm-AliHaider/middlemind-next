@@ -6,13 +6,13 @@ const words = ["HR platforms.", "AI accounting.", "Legal tech.", "Voice agents."
 
 export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void }) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white px-6 pt-16">
+    <section className="relative flex flex-col items-center justify-center overflow-hidden bg-white px-6 pt-24 pb-20">
       {/* Subtle background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-purple/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-5xl text-center">
+      <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -29,7 +29,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-heading text-6xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-7xl lg:text-8xl"
+          className="font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-gray-900 sm:text-6xl lg:text-7xl"
         >
           We build what<br />
           <span className="text-purple">others can&apos;t.</span>
@@ -40,7 +40,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-gray-600"
+          className="mx-auto mt-7 max-w-sm sm:max-w-xl text-base sm:text-lg leading-relaxed text-gray-600 px-2"
         >
           Enterprise AI products shipped at startup speed.
           10+ platforms live across HR, fintech, legal, real estate and more —
@@ -89,16 +89,7 @@ export default function HeroSection({ onTalkToMaya }: { onTalkToMaya: () => void
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-xs text-gray-400">scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-gray-300 to-transparent" />
-      </motion.div>
+      
     </section>
   );
 }
