@@ -22,9 +22,27 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
     return () => clearInterval(t);
   }, [inView, target]);
 
+<<<<<<< Updated upstream
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+=======
+  return (
+    <span ref={ref}>
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
+
+const metrics = [
+  { value: 10, suffix: "+", label: "Products in Production" },
+  { value: 400, suffix: "+", label: "Voice Tools Built" },
+  { value: 76934, label: "KB Chunks Indexed" },
+  { value: 48, suffix: "h", label: "Average Delivery Time" },
+];
+
+>>>>>>> Stashed changes
 export default function MetricsSection() {
   return (
     <section className="py-20 bg-purple">

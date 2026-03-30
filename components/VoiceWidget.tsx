@@ -22,6 +22,7 @@ interface TranscriptEntry {
 export default function VoiceWidget({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [state, setState] = useState<WidgetState>("idle");
   const [token, setToken] = useState<string | null>(null);
+  const [callTranscript, setCallTranscript] = useState<TranscriptEntry[]>([]);
 
   const openModal = useCallback(() => {
     setState("pre-call");
@@ -34,11 +35,13 @@ export default function VoiceWidget({ isOpen, onClose }: { isOpen: boolean; onCl
     if (!isOpen) {
       setState("idle");
       setToken(null);
+      setCallTranscript([]);
     }
   }, [isOpen, state, openModal]);
 
   const startCall = async () => {
     setState("connecting");
+    setCallTranscript([]);
     try {
       const username = `visitor-${Date.now()}`;
       const res = await fetch(`/api/token?room=maya-room&username=${username}`);
@@ -92,10 +95,10 @@ export default function VoiceWidget({ isOpen, onClose }: { isOpen: boolean; onCl
                   audio={true}
                 >
                   <RoomAudioRenderer />
-                  <InCallView onEnd={() => setState("post-call")} />
+                  <InCallView onEnd={(transcript) => { setCallTranscript(transcript); setState("post-call"); }} />
                 </LiveKitRoom>
               )}
-              {state === "post-call" && <PostCallView onNewCall={() => setState("pre-call")} onClose={onClose} />}
+              {state === "post-call" && <PostCallView transcript={callTranscript} onNewCall={() => { setState("pre-call"); setCallTranscript([]); }} onClose={onClose} />}
             </motion.div>
           </motion.div>
         )}
@@ -152,11 +155,12 @@ function ConnectingView() {
   );
 }
 
-function InCallView({ onEnd }: { onEnd: () => void }) {
+function InCallView({ onEnd }: { onEnd: (transcript: TranscriptEntry[]) => void }) {
   const [seconds, setSeconds] = useState(0);
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [isMuted, setIsMuted] = useState(false);
   const transcriptRef = useRef<HTMLDivElement>(null);
+  const transcriptRef2 = useRef<TranscriptEntry[]>([]);
 
   const voiceAssistant = useVoiceAssistant();
   const room = useRoomContext();
@@ -169,9 +173,12 @@ function InCallView({ onEnd }: { onEnd: () => void }) {
     return () => clearInterval(timer);
   }, []);
 
+  // Keep transcript ref in sync
+  useEffect(() => { transcriptRef2.current = transcript; }, [transcript]);
+
   // Listen for disconnection
   useEffect(() => {
-    const handler = () => onEnd();
+    const handler = () => onEnd(transcriptRef2.current);
     room.on(RoomEvent.Disconnected, handler);
     return () => { room.off(RoomEvent.Disconnected, handler); };
   }, [room, onEnd]);
@@ -182,11 +189,9 @@ function InCallView({ onEnd }: { onEnd: () => void }) {
       try {
         const text = new TextDecoder().decode(payload);
         const data = JSON.parse(text);
-        if (data.text) {
-          setTranscript((prev) => [
-            ...prev,
-            { speaker: data.speaker === "agent" ? "agent" : "visitor", text: data.text },
-          ]);
+        if (data.text && data.speaker) {
+          const entry: TranscriptEntry = { speaker: data.speaker === "agent" ? "agent" : "visitor", text: data.text };
+          setTranscript((prev) => [...prev, entry]);
         }
       } catch {
         // ignore non-JSON data
@@ -194,6 +199,26 @@ function InCallView({ onEnd }: { onEnd: () => void }) {
     };
     room.on(RoomEvent.DataReceived, handler);
     return () => { room.off(RoomEvent.DataReceived, handler); };
+  }, [room]);
+
+  // Also capture LiveKit transcriptions (agent speech-to-text events)
+  useEffect(() => {
+    const handler = (segments: Array<{ text: string; participantIdentity: string; isFinal: boolean }>) => {
+      segments.filter(s => s.isFinal && s.text.trim()).forEach(s => {
+        const isAgent = s.participantIdentity !== room.localParticipant?.identity;
+        const entry: TranscriptEntry = { speaker: isAgent ? "agent" : "visitor", text: s.text.trim() };
+        setTranscript((prev) => {
+          // Avoid duplicates
+          const last = prev[prev.length - 1];
+          if (last?.text === entry.text && last?.speaker === entry.speaker) return prev;
+          return [...prev, entry];
+        });
+      });
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (room as any).on("transcriptionReceived", handler);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return () => { (room as any).off("transcriptionReceived", handler); };
   }, [room]);
 
   // Auto-scroll transcript
@@ -211,7 +236,7 @@ function InCallView({ onEnd }: { onEnd: () => void }) {
 
   const endCall = () => {
     room.disconnect();
-    onEnd();
+    onEnd(transcriptRef2.current);
   };
 
   const formatTime = (s: number) => {
@@ -281,12 +306,31 @@ function InCallView({ onEnd }: { onEnd: () => void }) {
   );
 }
 
-function PostCallView({ onNewCall, onClose }: { onNewCall: () => void; onClose: () => void }) {
-  const nextSteps = [
-    "Review our product portfolio",
-    "Schedule a technical deep-dive",
-    "Request a custom demo",
-  ];
+function PostCallView({ transcript, onNewCall, onClose }: { transcript: TranscriptEntry[]; onNewCall: () => void; onClose: () => void }) {
+  const [topics, setTopics] = useState<string[]>([]);
+  const [nextSteps, setNextSteps] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const summarize = async () => {
+      try {
+        const res = await fetch("/api/summarize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ transcript }),
+        });
+        const data = await res.json();
+        setTopics(data.topics || []);
+        setNextSteps(data.nextSteps || []);
+      } catch {
+        setTopics(["Consultation with Maya"]);
+        setNextSteps(["Review our product portfolio", "Request a custom demo"]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    summarize();
+  }, [transcript]);
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -297,31 +341,41 @@ function PostCallView({ onNewCall, onClose }: { onNewCall: () => void; onClose: 
       </div>
       <h3 className="mt-4 font-heading text-xl font-700 text-gray-900">Call Complete</h3>
 
-      <div className="mt-6 w-full text-left">
-        <h4 className="text-sm font-semibold text-gray-900">Topics Discussed</h4>
-        <ul className="mt-2 space-y-1 text-sm text-gray-600">
-          <li className="flex items-start gap-2">
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-purple" />
-            MiddleMind product capabilities
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-purple" />
-            AI integration opportunities
-          </li>
-        </ul>
-      </div>
+      {loading ? (
+        <div className="mt-6 flex items-center gap-2 text-sm text-gray-400">
+          <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+          Generating summary...
+        </div>
+      ) : (
+        <>
+          <div className="mt-6 w-full text-left">
+            <h4 className="text-sm font-semibold text-gray-900">Topics Discussed</h4>
+            <ul className="mt-2 space-y-1 text-sm text-gray-600">
+              {topics.map((topic, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-purple" />
+                  {topic}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-      <div className="mt-4 w-full text-left">
-        <h4 className="text-sm font-semibold text-gray-900">Next Steps</h4>
-        <ul className="mt-2 space-y-1 text-sm text-gray-600">
-          {nextSteps.map((step) => (
-            <li key={step} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-teal" />
-              {step}
-            </li>
-          ))}
-        </ul>
-      </div>
+          <div className="mt-4 w-full text-left">
+            <h4 className="text-sm font-semibold text-gray-900">Next Steps</h4>
+            <ul className="mt-2 space-y-1 text-sm text-gray-600">
+              {nextSteps.map((step, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-teal" />
+                  {step}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
 
       <div className="mt-6 flex w-full gap-3">
         <a
